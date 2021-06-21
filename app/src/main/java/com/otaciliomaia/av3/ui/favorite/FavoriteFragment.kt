@@ -1,4 +1,4 @@
-package com.otaciliomaia.av3.ui.notifications
+package com.otaciliomaia.av3.ui.favorite
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.otaciliomaia.av3.R
 
-class NotificationsFragment : Fragment() {
+class FavoriteFragment : Fragment() {
 
-    private lateinit var notificationsViewModel: NotificationsViewModel
+    private lateinit var favoriteViewModel: FavoriteViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        notificationsViewModel =
-                ViewModelProvider(this).get(NotificationsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
-        notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
+        favoriteViewModel =
+                ViewModelProvider(this).get(FavoriteViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_favorite, container, false)
+        val textView: TextView = root.findViewById(R.id.text_dashboard)
+        favoriteViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root
