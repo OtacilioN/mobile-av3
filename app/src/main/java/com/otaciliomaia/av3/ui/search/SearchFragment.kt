@@ -8,10 +8,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
 
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,7 +22,7 @@ class SearchFragment : Fragment() {
 
     private lateinit var searchViewModel: SearchViewModel
     lateinit var searchEntry:EditText
-    lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerView: RecyclerView
 
     var weatherList:MutableList<WeatherItem> = ArrayList<WeatherItem>()
 
@@ -37,7 +35,8 @@ class SearchFragment : Fragment() {
         weatherList.add(WeatherItem("cidade",39.0,1))
 
         searchViewModel =
-                ViewModelProvider(this).get(SearchViewModel::class.java)
+                ViewModelProvider(this)
+                    .get(SearchViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_search, container, false)
         val context=requireActivity().applicationContext
         recyclerView=root.findViewById(R.id.weather_recycler_view) as RecyclerView
@@ -45,10 +44,19 @@ class SearchFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         val adapter=WeatherAdapter(weatherList)
         recyclerView.adapter=adapter
-        searchViewModel.text.observe(viewLifecycleOwner, Observer {
-            //textView.text = it
-        })
+
+        val searchBtn = root.findViewById<Button>(R.id.button)
+        val progressBar = root.findViewById<ProgressBar>(R.id.progress_bar)
+        progressBar.visibility=View.INVISIBLE
+        searchBtn.setOnClickListener {
+            searchCity()
+        }
+
+//        searchViewModel.text.observe(viewLifecycleOwner, Observer {
+//            textView.text = it
+//        })
         return root
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

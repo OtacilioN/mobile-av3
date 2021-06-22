@@ -33,5 +33,9 @@ class WeatherAdapter(private val weatherList:MutableList<WeatherItem>):
         val cityName: TextView =itemView.findViewById(R.id.city_name)
         val temperature: TextView=itemView.findViewById(R.id.temperature)
         //val weatherIcon: ImageView = itemView.findViewById(R.id.weather_icon)
+        fun bindToWeatherItem(){
+            cityName.text
+            temperature.text
+        }
     }
 }
