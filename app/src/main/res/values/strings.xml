@@ -1,6 +1,15 @@
 <resources>
-    <string name="app_name">av3</string>
+    <string name="app_name">Av3</string>
     <string name="title_search">Search</string>
     <string name="title_favorite">Favorite</string>
     <string name="title_settings">Settings</string>
+    <string name="lan_en_us">English (US)</string>
+    <string name="lan_pt_br">Portuguese (BR)</string>
+    <string name="temp_unit">temperature unity</string>
+    <string name="desc_lan">Description Language</string>
+    <string name="save">Save</string>
+    <string name="search_tip">Type city`s name</string>
+    <string name="placeholder_city_name">cidade city</string>
+    <string name="placeholder_temperature">26</string>
+    <string name="no_connection">No Internet Signal</string>
 </resources>
