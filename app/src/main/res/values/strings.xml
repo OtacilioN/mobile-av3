@@ -12,4 +12,5 @@
     <string name="placeholder_city_name">cidade city</string>
     <string name="placeholder_temperature">26</string>
     <string name="no_connection">No Internet Signal</string>
+    <string name="no_result_found">No city with that name found</string>
 </resources>

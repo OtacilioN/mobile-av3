@@ -3,6 +3,8 @@ package com.otaciliomaia.av3.data.model
 import com.google.gson.annotations.SerializedName
 
 class CityWeather {
+    @SerializedName("list")
+    var resultList: ArrayList<CityWeather> = ArrayList<CityWeather>()
     class Main {
         @SerializedName("temp")
         var temp = 0f

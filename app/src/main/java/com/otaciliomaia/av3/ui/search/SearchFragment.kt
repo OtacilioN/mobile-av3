@@ -30,6 +30,7 @@ class SearchFragment : Fragment() {
     lateinit var searchEntry:EditText
     private lateinit var recyclerView: RecyclerView
     lateinit var progressBar:ProgressBar
+    lateinit var adapter:WeatherAdapter
 
 
     var weatherList:MutableList<WeatherItem> = ArrayList<WeatherItem>()
@@ -49,7 +50,7 @@ class SearchFragment : Fragment() {
         recyclerView=root.findViewById(R.id.weather_recycler_view) as RecyclerView
         recyclerView.layoutManager=LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
-        val adapter=WeatherAdapter(weatherList)
+        adapter=WeatherAdapter(weatherList)
         recyclerView.adapter=adapter
 
         val searchBtn = root.findViewById<Button>(R.id.button)
@@ -86,13 +87,22 @@ class SearchFragment : Fragment() {
         val prefLang = preferences.observeLang()
         // true = pt_br ; false = en
         val retrofitApi=RetrofitOpenWeather().getWeatherApi()
-        val searchResult: Call<CityWeather> = retrofitApi.getWeatherData(
-            cityName,
-            "metric",
-            "en",
-            apiKey
-        )
+        val searchResult= retrofitApi?.getWeatherData(cityName, "metric", "en", apiKey)
 
+        searchResult?.enqueue(object : Callback<CityWeather>{
+            override fun onResponse(call: Call<CityWeather>, response: Response<CityWeather>) {
+                progressBar.visibility=View.INVISIBLE
+                val resultCity=response.body()
+                if (resultCity!=null){
+                    searchViewModel.updateList(resultCity.resultList)
+                    adapter.notifyDataSetChanged()
+                }
+            }
+            override fun onFailure(call: Call<CityWeather>, t: Throwable) {
+                progressBar.visibility=View.INVISIBLE
+                Toast.makeText(getContext(),getString(R.string.no_result_found), Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     @Suppress("DEPRECATION")
