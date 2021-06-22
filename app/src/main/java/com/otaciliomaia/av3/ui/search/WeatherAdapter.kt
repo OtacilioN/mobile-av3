@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.otaciliomaia.av3.R
+import com.otaciliomaia.av3.data.model.CityWeather
 import com.otaciliomaia.av3.data.model.WeatherItem
 
 class WeatherAdapter(private val weatherList:MutableList<WeatherItem>):
@@ -32,10 +33,10 @@ class WeatherAdapter(private val weatherList:MutableList<WeatherItem>):
     inner class WeatherViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
         val cityName: TextView =itemView.findViewById(R.id.city_name)
         val temperature: TextView=itemView.findViewById(R.id.temperature)
-        //val weatherIcon: ImageView = itemView.findViewById(R.id.weather_icon)
-        fun bindToWeatherItem(){
-            cityName.text
-            temperature.text
+        val weatherIcon: ImageView = itemView.findViewById(R.id.weather_icon)
+        fun bindToWeatherItem(cityWeather: CityWeather){
+            cityName.text = cityWeather.name.toString()
+            temperature.text = cityWeather.main?.temp.toString()
         }
     }
 }

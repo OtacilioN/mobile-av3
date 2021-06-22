@@ -2,16 +2,13 @@ package com.otaciliomaia.av3.data.model
 
 import com.google.gson.annotations.SerializedName
 
-class WeatherCity {
+data class WeatherInfo (
     @SerializedName("id")
-    var id = 0
-
-    @SerializedName("name")
-    var name: String? = null
-
+    var id: Int,
+    @SerializedName("main")
+    var main: String,
     @SerializedName("description")
-    var description: String? = null
-
+    var descripton: String,
     @SerializedName("icon")
-    var icon: String? = null
-}
+    var icon: String
+)

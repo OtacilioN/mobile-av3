@@ -11,18 +11,26 @@ import android.view.ViewGroup
 import android.widget.*
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.otaciliomaia.av3.R
+import com.otaciliomaia.av3.data.model.CityWeather
 import com.otaciliomaia.av3.data.model.WeatherItem
+import com.otaciliomaia.av3.ui.settings.SettingsFragment
+import com.otaciliomaia.av3.ui.settings.SettingsViewModel
+import com.otaciliomaia.av3.utils.RetrofitOpenWeather
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SearchFragment : Fragment() {
-
+    val apiKey="167cdb68c8baa99813c299b8158044ba"
     private lateinit var searchViewModel: SearchViewModel
     lateinit var searchEntry:EditText
     private lateinit var recyclerView: RecyclerView
+    lateinit var progressBar:ProgressBar
+
 
     var weatherList:MutableList<WeatherItem> = ArrayList<WeatherItem>()
 
@@ -31,7 +39,6 @@ class SearchFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        //teste
         weatherList.add(WeatherItem("cidade",39.0,1))
 
         searchViewModel =
@@ -46,15 +53,17 @@ class SearchFragment : Fragment() {
         recyclerView.adapter=adapter
 
         val searchBtn = root.findViewById<Button>(R.id.button)
-        val progressBar = root.findViewById<ProgressBar>(R.id.progress_bar)
+        progressBar = root.findViewById<ProgressBar>(R.id.progress_bar)
+        searchEntry=root.findViewById(R.id.search_text)
         progressBar.visibility=View.INVISIBLE
+        val cityNameSearch = searchEntry.text.toString()
         searchBtn.setOnClickListener {
-            searchCity()
+            searchCity(cityNameSearch)
         }
 
 //        searchViewModel.text.observe(viewLifecycleOwner, Observer {
 //            textView.text = it
-//        })
+//        }
         return root
 
     }
@@ -63,12 +72,26 @@ class SearchFragment : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-    fun searchCity(){
+    fun searchCity(cityName: String){
         val context=requireActivity().applicationContext
         if (!isInternetAvailable(context)){
             Toast.makeText(context,R.string.no_connection, Toast.LENGTH_SHORT).show()
             return
         }
+        progressBar.visibility=View.VISIBLE
+        //getpreferences
+        val preferences=SettingsViewModel()
+        val prefUnit = preferences.observeUnit()
+        // true = F (imperial) ; false = C (metric)
+        val prefLang = preferences.observeLang()
+        // true = pt_br ; false = en
+        val retrofitApi=RetrofitOpenWeather().getWeatherApi()
+        val searchResult: Call<CityWeather> = retrofitApi.getWeatherData(
+            cityName,
+            "metric",
+            "en",
+            apiKey
+        )
 
     }
 
