@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Av3</string>
+    <string name="title_search">Buscar</string>
+    <string name="title_favorite">Favorito</string>
+    <string name="title_settings">Configurações</string>
+    <string name="lan_en_us">Ingles (US)</string>
+    <string name="lan_pt_br">Português (BR)</string>
+    <string name="temp_unit">unidade de temperatura</string>
+    <string name="desc_lan">Linguagem da Descrição</string>
+    <string name="save">Salvar</string>
+    <string name="search_tip">Nome de cidade</string>
+    <string name="placeholder_city_name">cidade city</string>
+    <string name="placeholder_temperature">26</string>
+    <string name="no_connection">Internet indisponível</string>
+    <string name="no_result_found">Não achamos nem uma cidade com esse nome</string>
+</resources>

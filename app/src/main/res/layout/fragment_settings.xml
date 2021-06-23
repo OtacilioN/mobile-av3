@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="0dp"
-        android:text="Temperature Unit"
+        android:text="@string/temp_unit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Description Language"
+        android:text="@string/desc_lan"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/temperature_unit_group" />
 
@@ -68,14 +68,14 @@
             android:id="@+id/en_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="English (EN)" />
+            android:text="@string/lan_en_us" />
 
         <RadioButton
             android:id="@+id/pt_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="44dp"
-            android:text="Portuguese (PT)" />
+            android:text="@string/lan_pt_br" />
     </RadioGroup>
 
     <Button
